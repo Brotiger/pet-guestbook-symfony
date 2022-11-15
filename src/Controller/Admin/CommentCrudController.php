@@ -34,8 +34,7 @@ class CommentCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add(EntityFilter::new('conference'))
-        ;
+            ->add(EntityFilter::new('conference'));
     }
 
     public function configureFields(string $pageName): iterable
