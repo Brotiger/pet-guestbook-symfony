@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: ConferenceRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[UniqueEntity('slug')]
 class Conference
 {
@@ -35,6 +36,12 @@ class Conference
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private ?string $slug = null;
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function __construct()
     {
